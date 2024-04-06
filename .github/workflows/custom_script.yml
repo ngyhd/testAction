@@ -22,8 +22,6 @@ jobs:
       
     - name: Run custom script
       run: |
-        # 进入脚本文件所在的目录
-        ls -lh
         #cd path/to/script/directory
         #echo "Hello World!"
         # 执行脚本文件
