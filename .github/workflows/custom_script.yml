@@ -13,13 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       
-    - name: Print working directory
-      run: pwd  # 打印当前工作目录
-    
-    - name: List files
-      run: ls -al  # 列出当前目录下的文件
-
-      
     - name: Run custom script
       run: |
         #cd path/to/script/directory
