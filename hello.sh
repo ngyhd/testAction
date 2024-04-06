@@ -5,3 +5,9 @@ for loop in $FILES
 do
     echo "The value is: $loop"
 done
+
+FILES=$(ls ./api)
+for loop in $FILES
+do
+    echo "The value is: $loop"
+done
