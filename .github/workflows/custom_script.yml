@@ -27,4 +27,4 @@ jobs:
         #cd path/to/script/directory
         #echo "Hello World!"
         # 执行脚本文件
-        ./hello.sh
+        sudo sh ./hello.sh
