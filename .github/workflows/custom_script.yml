@@ -1,0 +1,23 @@
+name: Run Custom Script
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run custom script
+      run: |
+        # 进入脚本文件所在的目录
+        ls -lh
+        #cd path/to/script/directory
+        echo "Hello World!"
+        # 执行脚本文件
+       # ./your_script.sh
