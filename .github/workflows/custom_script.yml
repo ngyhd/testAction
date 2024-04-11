@@ -18,6 +18,6 @@ jobs:
         #cd path/to/script/directory
         #echo "Hello World!"
         # 执行脚本文件
-        echo ${{ vars.TESTVARIABLE}} #仓库的变量
+        echo ${{ vars.APIFOXPROJECTID}} #仓库的变量
         echo ${{ secrets.APITOKEN }} #仓库密钥
         sudo sh ./hello.sh
