@@ -18,5 +18,5 @@ jobs:
         #cd path/to/script/directory
         #echo "Hello World!"
         # 执行脚本文件
-        echo ${{ secrets.TESTVARIABLE}}
+        echo ${{ vars.TESTVARIABLE}}
         sudo sh ./hello.sh
