@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - master
-
+env:
+  PROJECT_ID:  ${{ vars.APIFOXPROJECTID }} 
 jobs:
   run_script:
     runs-on: ubuntu-latest
@@ -21,4 +22,6 @@ jobs:
         echo ${{ vars.APIFOXPROJECTID}} #仓库的变量
         echo ${{ secrets.APITOKEN }} #仓库密钥
         echo ${{ vars.TESTSKEY }} # 测试不存在的vars会发生什么
+        echo ${{ env.PROJECT_ID }}
+        echo "end"
         sudo sh ./hello.sh
