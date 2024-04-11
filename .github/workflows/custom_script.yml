@@ -20,4 +20,5 @@ jobs:
         # 执行脚本文件
         echo ${{ vars.APIFOXPROJECTID}} #仓库的变量
         echo ${{ secrets.APITOKEN }} #仓库密钥
+        echo ${{ vars.TESTSKEY }} # 测试不存在的vars会发生什么
         sudo sh ./hello.sh
