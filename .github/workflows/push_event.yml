@@ -6,6 +6,8 @@ on:
       - master
 env:
   PROJECT_ID:  ${{ vars.APIFOXPROJECTID }} 
+  ENVIRONMENT: dev
+  
 jobs:
   run_script:
     runs-on: ubuntu-latest
@@ -23,5 +25,39 @@ jobs:
         echo ${{ secrets.APITOKEN }} #仓库密钥
         echo ${{ vars.TESTSKEY }} # 测试不存在的vars会发生什么
         echo ${{ env.PROJECT_ID }}
+        echo ${GITHUB_SHA:0:10}
         echo "end"
         sudo sh ./hello.sh
+
+    - name: Extract origin branch name # 发布到dev/test环境就拿分支;发布到prod环境就拿Tag
+      id: extract_origin_branch
+      shell: bash
+      run: |
+          if [ $ENVIRONMENT == "dev" ]
+          then
+            echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          elif [ $ENVIRONMENT == "test" ]
+          then
+            echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          else
+            echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/tags/})"
+          fi
+
+    - name: Extract branch name # 处理斜杠
+      id: extract_branch
+      shell: bash
+      run: | 
+        echo ${{ steps.extract_origin_branch.outputs.branch }}
+        echo "##[set-output name=branch;]$(echo ${{ steps.extract_origin_branch.outputs.branch }} | sed 's/\//_/g')" 
+
+    - name: Extract github sha # 拿github sha 并截取10位
+      id: extract_github_sha
+      shell: bash
+      run: |
+        echo "##[set-output name=githubsha;]$(echo ${GITHUB_SHA:0:10})"
+    
+    - name: Extract image tag # 提取镜像tag 命名规则 [分支名/Tag]_[GithubCommitSHA]
+      id: extract_image_tag
+      shell: bash
+      run: |
+        echo "##[set-output name=imagetag;]$(echo ${{ steps.extract_branch.outputs.branch }}_${{ steps.extract_github_sha.outputs.githubsha }})"
