@@ -54,6 +54,7 @@ jobs:
       id: extract_github_sha
       shell: bash
       run: |
+        echo ${GITHUB_SHA}
         echo "##[set-output name=githubsha;]$(echo ${GITHUB_SHA:0:10})"
     
     - name: Extract image tag # 提取镜像tag 命名规则 [分支名/Tag]_[GithubCommitSHA]
