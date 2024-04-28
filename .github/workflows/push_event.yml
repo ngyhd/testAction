@@ -18,6 +18,7 @@ jobs:
       
     - name: Run custom script
       run: |
+        ls -lh
         echo "git log"
         git log -1 --format="%ct" -- ./api/a.json
         echo "system date"
