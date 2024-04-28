@@ -18,6 +18,7 @@ jobs:
       
     - name: Run custom script
       run: |
+        git checkout -b dev origin/master
         git log -5
         ls -lh
         echo "git log"
