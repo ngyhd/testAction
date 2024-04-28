@@ -16,10 +16,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4.1.4
       
+    - name: Get Last Modified Time
+      id: last_modified_time
+      run: |
+        commit_hash=$(git log -1 --format="%H" hello.sh)
+        last_modified_time=$(git show -s --format="%ci" $commit_hash hello.sh)
+        echo "Last Modified Time: $last_modified_time"
+        echo "::set-output name=last_modified_time::$last_modified_time"
+    - name: Display Last Modified Time
+      run: echo "The file was last modified on ${{ steps.last_modified_time.outputs.last_modified_time }}"
+      
     - name: Run custom script
       run: |
-        git checkout -b dev origin/master
-        git log -5
         ls -lh
         echo "git log"
         git log -1 --format="%ct" -- ./hello.sh
