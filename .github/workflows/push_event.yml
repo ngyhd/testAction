@@ -18,9 +18,11 @@ jobs:
       
     - name: Run custom script
       run: |
+        git log -5
         ls -lh
         echo "git log"
         git log -1 --format="%ct" -- ./hello.sh
+        git log -2 --format="%ct" -- ./hello.sh
         echo "system date"
         date +%s
         #cd path/to/script/directory
