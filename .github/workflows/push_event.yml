@@ -14,13 +14,13 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4.1.4
       
     - name: Run custom script
       run: |
         ls -lh
         echo "git log"
-        git log -1 --format="%ct" -- ./api/a.json
+        git log -1 --format="%ct" -- ./hello.sh
         echo "system date"
         date +%s
         #cd path/to/script/directory
