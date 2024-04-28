@@ -19,7 +19,7 @@ jobs:
     - name: Run custom script
       run: |
         echo "git log"
-        git log -1 --format="%ct" -- README.md
+        git log -1 --format="%ct" -- ./api/a.json
         echo "system date"
         date +%s
         #cd path/to/script/directory
