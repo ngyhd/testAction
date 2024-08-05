@@ -1,11 +1,10 @@
-name: Run Custom Script
+name: Push Event
 
 on:
   push:
     branches:
-      - master
+      - dev
 env:
-  PROJECT_ID:  ${{ vars.APIFOXPROJECTID }} 
   ENVIRONMENT: dev
   
 jobs:
@@ -27,25 +26,6 @@ jobs:
     - name: Display last modified time
       run: |
         echo "Last modified time: ${{ steps.last-modified.outputs.last_modified }}"
-      
-    - name: Run custom script
-      run: |
-        ls -lh
-        echo "git log"
-        git log -1 --format="%ct" -- ./hello.sh
-        git log -2 --format="%ct" -- ./hello.sh
-        echo "system date"
-        date +%s
-        #cd path/to/script/directory
-        #echo "Hello World!"
-        # 执行脚本文件
-        echo ${{ vars.APIFOXPROJECTID}} #仓库的变量
-        echo ${{ secrets.APITOKEN }} #仓库密钥
-        echo ${{ vars.TESTSKEY }} # 测试不存在的vars会发生什么
-        echo ${{ env.PROJECT_ID }}
-        echo ${GITHUB_SHA:0:10}
-        echo "end"
-        sudo sh ./hello.sh
 
     - name: Extract origin branch name # 发布到dev/test环境就拿分支;发布到prod环境就拿Tag
       id: extract_origin_branch
