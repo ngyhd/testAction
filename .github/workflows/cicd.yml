@@ -1,4 +1,4 @@
-name: cicd
+name: Manual workflow
 
 on:
   workflow_dispatch: # 触发流水线机制 手动触发
@@ -6,38 +6,34 @@ on:
       projectname:
         description: '项目名'
         required: true
-        # 开发者维护 具体项目名
-        default: 'test'
+        # 自定义项
+        default: 'testAction'
       servicename:
         description: '服务名'
         required: true
-        # 开发者维护 具体服务名
+        # 自定义项
         default: 'test'
         type: choice
         options:
           - a
           - b
           - c
-          - d
-          - e
-          - f
       environment:
         description: '部署环境'
         required: true
         default: test
         type: choice
+        # 自定义项
         options:
           - test
           - prod
       comment:
         description: '发布备注'
         required: false
-        default: 'xxx'
+        # 自定义项
+        default: '发布新代码啦!'
 
 env:
-  AWS_REGION: ap-southeast-1
-  ECR_REGISTRY: 024905375334.dkr.ecr.ap-southeast-1.amazonaws.com
-  CLUSTER_NAME: Cluster Name # EKS集群名
   # 环境
   ENVIRONMENT: ${{ github.event.inputs.environment }}
   # 业务服务参数
@@ -54,12 +50,8 @@ jobs:
       
     - name: Run custom script
       run: |
-        #cd path/to/script/directory
-        #echo "Hello World!"
+        echo ${{ vars.Client}} #仓库的变量,有需要配置，无则删除
+        echo ${{ secrets.Serrets }} #仓库密钥，有需要配置，无则删除
+        echo ${{ env.ENVIRONMENT }}
         # 执行脚本文件
-        echo ${{ vars.APIFOXPROJECTID}} #仓库的变量
-        echo ${{ secrets.APITOKEN }} #仓库密钥
-        echo ${{ vars.TESTSKEY }} # 测试不存在的vars会发生什么
-        echo ${{ env.PROJECT_ID }}
-        echo "end"
         sudo sh ./hello.sh
